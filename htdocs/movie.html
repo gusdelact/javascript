@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Ejemplo de como crear un objeto</title>
+    <meta charset="utf-8" >
+    <script src="js/movie.js">
+    </script>
+    <script>
+       var thor = new Movie(
+      'Thor:The dark world',
+       'ciencia ficcion','A', 
+        ['4:00pm','6:00pm','8:00pm','10:00pm']);
+      window.onload = function() {
+    
+  
+        var ul=  thor.view();
+        var p=document.getElementById('peliculas');
+        p.appendChild(ul);
+        var pjson=document.getElementById('peliculasjson');
+        pjson.innerHTML=thor.toJSON();        
+        var recommend=thor.getNextShowing();
+        p.appendChild(document.createTextNode(recommend) );
+      };
+    </script>
+  </head>
+  <body>
+    <h1> Peliculas </h1>
+    <p id="peliculas">
+      
+    </p>
+    <p id="peliculasjson">
+      
+    </p>
+      
+  </body>
+</html>
