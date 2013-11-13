@@ -33,6 +33,26 @@ function mostrar() {
        dibujarSemiCirculo(canvas,context);
     } 
   }
+  //del tweet seleccionado, dibujarlo en el canvas
+  dibujarTweet(); 
+}
+
+function dibujarTweet() {
+  //seleccionar el color de fondo
+   var color= document.getElementById('color');
+   var indice = color.selectedIndex;
+   var fgColor = color[indice].value;
+  //seleccionar texto a dibujar
+   var tweets = document.getElementById('tweets');
+   indice= tweets.selectedIndex;
+   var texto = tweets[indice].value;
+  //dibujar texto en canvas con el color indicado
+  var drawzone= document.getElementById("drawzone");
+  var context=drawzone.getContext('2d');
+  context.fillStyle=fgColor;
+  context.font="bold 1em sans-serif";
+  context.textAlign= 'left';
+  context.fillText(texto,30,100 );
 }
 
 function dibujarCuadrado(canvas,contexto) {
@@ -72,4 +92,19 @@ function limpiar(canvas,contexto) {
   var seleccionado = colorFondo.options[indice].value;
   contexto.fillStyle = seleccionado;
   contexto.fillRect(0,0,canvas.width, canvas.height);
+}
+//funcion que var a ser invocada via JSONP
+function actualizarTweets(arregloTweets) {
+  console.log(arregloTweets);
+  var selectTweets = document.getElementById('tweets');
+  for (var i=0;i<arregloTweets.length; i++) {
+    var objeto= arregloTweets[i];
+    var texto = objeto.text;
+    var option=document.createElement('option');
+    option.text=texto;
+    option.value=objeto.text.replace("\"","'");
+    selectTweets.options[i]=option;
+   // console.log(texto);
+  }
+  selectTweets.selectedIndex=0;
 }
